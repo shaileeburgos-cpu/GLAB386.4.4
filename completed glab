@@ -1,0 +1,71 @@
+import pandas as pd
+
+# ---------------------------------------------------------
+
+# ---------------------------------------------------------
+df = pd.DataFrame({
+    'Value': [10, 15, 20, 25, 30, 35],
+    'Fee': [20000, 25000, 26000, 22000, 24000, 35000],
+    'Duration': ['30day', '40days', '35days', '40days', '60days', '60days'],
+    'Discount': [1000, 2300, 1200, 2500, 2000, 2000],
+    'Category': ['A', 'A', 'B', 'B', 'A', 'B']
+})
+
+# ---------------------------------------------------------
+# 1. APPLY SINGLE AGGREGATE FUNCTION
+# ---------------------------------------------------------
+
+# Mean using agg()
+total_mean = df['Value'].agg('mean')
+print("Mean (agg):", total_mean)
+
+# Mean using direct method
+mean2 = df['Value'].mean()
+print("Mean (direct):", mean2)
+
+# Max using agg()
+max_val = df['Value'].agg('max')
+print("Max (agg):", max_val)
+
+# Max using direct method
+max2 = df['Value'].max()
+print("Max (direct):", max2)
+
+# Count using agg()
+count_val = df['Value'].agg('count')
+print("Count (agg):", count_val)
+
+# Count using direct method
+count2 = df['Value'].count()
+print("Count (direct):", count2)
+
+# Standard deviation using agg()
+std_val = df['Value'].agg('std')
+print("Standard Dev (agg):", std_val)
+
+# Standard deviation using direct method
+std2 = df['Value'].std()
+print("Standard Dev (direct):", std2)
+
+# ---------------------------------------------------------
+# 2. APPLY MULTIPLE AGGREGATE FUNCTIONS
+# ---------------------------------------------------------
+
+# Using agg() on multiple columns
+result_multi = df[['Fee', 'Discount']].aggregate('sum')
+print("\nMultiple Aggregates (agg):")
+print(result_multi)
+
+# Alternative direct method
+result_multi2 = df[['Fee', 'Discount']].sum()
+print("\nMultiple Aggregates (direct):")
+print(result_multi2)
+
+# ---------------------------------------------------------
+# 3. GROUPING + AGGREGATION
+# ---------------------------------------------------------
+
+# Group by Category and sum Fee + Discount
+result_group = df.groupby('Category')[['Fee', 'Discount']].agg('sum')
+print("\nGroupby Aggregation:")
+print(result_group)
